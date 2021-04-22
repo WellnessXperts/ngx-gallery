@@ -95,6 +95,8 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
   ngOnChanges() {
     // Refresh the slider
     this.updateSlider({value: 0, active: false});
+
+    console.log({ onChange: this.config.gestures });
   }
 
   ngOnInit() {
@@ -111,6 +113,9 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
       this._zone.runOutsideAngular(() => {
         // Move the slider
         this._hammer.on('pan', (e) => {
+          if (!this.config.gestures) {
+            return false;
+          }
 
           switch (this.config.slidingDirection) {
             case SlidingDirection.Horizontal:
